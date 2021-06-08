@@ -12,16 +12,16 @@ Cliente         <---    SOAP      --->      Web Service
    import javax.jws.WebMethod;
    import javax.jws.WebParam;
   
-  @WebService (serviceName = "nombreServicio" )
-  {
+   @WebService (serviceName = "nombreServicio" )
+   {
     
-    @webMethod(operationName = "Hello")
-    public String hello(@WebParam(name="name") String txt)
-    {
-      return "Hello" + txt + " !"; 
-    }
+       @webMethod(operationName = "Hello")
+       public String hello(@WebParam(name="name") String txt)
+       {
+         return "Hello" + txt + " !"; 
+       }
   
-  }
+   }
 ```
 
 1. 
