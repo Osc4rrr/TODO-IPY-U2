@@ -183,7 +183,9 @@ se recomienda dejar el ojdbc en la carpeta donde se crea proyecto y escoger path
 
 4. Conectarse a la base de datos desde sql developer y ejecutamos el script de nuestra base de datos. 
 
-5. en packages, modelo se crearan las clases que utilizaremos, que seran coincidentes con los nombre de las tablas de la base de datos, estas se irian creando a medida que se vayan necesitando en el desarrollo. 
+# Creacion de modelos
+
+1. en packages, modelo se crearan las clases que utilizaremos, que seran coincidentes con los nombre de las tablas de la base de datos, estas se irian creando a medida que se vayan necesitando en el desarrollo. 
 
 Ejemplo de clase Producto en clases: 
 ```java
@@ -263,13 +265,64 @@ public class Producto {
     public String toString() {
         return "Producto{" + "codigo_producto=" + codigo_producto + ", nombre_producto=" + nombre_producto + ", precio=" + precio + ", stock=" + stock + ", autor=" + autor + ", vigencia=" + vigencia + '}';
     }
-    
-    
-    
-    
-    
+     
 }
 ```
+
+# Creacion de procedimientos almacenados 
+1. Se crearan los procedimientos almacenados en la base de datos, para luego llamarlos desde java 
+
+Tip para crear procedimiento almacenado: 
+- Escoger tabla desde sql developer, click derecho e ir a tabla, luego escoger generar API de tabla, lo que creara un package con las acciones insertar, actualizar y eliminar, el leer los datos debe ser creado manual. 
+
+Ejemplo Clases: 
+
+```sql
+
+create or replace package PRODUCTO_PKG
+is
+PROCEDURE proc_mostrarProducto(p_cursor out SYS_REFCURSOR);
+PROCEDURE proc_prodDetalle(p_id number, p_cursor out SYS_REFCURSOR); 
+
+procedure upd_descuentaStock (
+    p_ID_PRODUCTO in PRODUCTO.ID_PRODUCTO%type
+    ,p_STOCK in PRODUCTO.STOCK%type default null 
+    ); 
+    
+
+
+create or replace package body PRODUCTO_PKG
+is
+
+PROCEDURE proc_mostrarProducto(p_cursor out SYS_REFCURSOR)
+is
+begin
+    open p_cursor for 
+        select * from producto;
+end;
+
+PROCEDURE proc_prodDetalle(p_id number, p_cursor out SYS_REFCURSOR)
+is
+begin
+    open p_cursor for 
+        select * from producto
+        where id_producto = p_id; 
+end;
+
+procedure upd_descuentaStock (
+    p_ID_PRODUCTO in PRODUCTO.ID_PRODUCTO%type
+    ,p_STOCK in PRODUCTO.STOCK%type default null 
+    ) is
+begin
+    update PRODUCTO set
+    STOCK = STOCK - p_STOCK
+    where ID_PRODUCTO = p_ID_PRODUCTO;
+end;
+```
+
+
+
+# Creacion de clase intermedia que permitira hacer las acciones hacia la base de datos y desde la base de datos, en caso dejemplo, sera la clase DAO. 
 
 
 
