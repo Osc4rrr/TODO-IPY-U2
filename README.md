@@ -493,30 +493,7 @@ public class WSgesbod {
         return resultado; 
         
     }
-    
-    
-
-    /**
-     * This is a sample web service operation
-     */
-    @WebMethod(operationName = "saludo")
-    @WebResult(name="saludar")
-    public String hello(
-            @WebParam(name = "nombre") String txt, 
-            @WebParam(name = "apellido_paterno") String apellido
-    ) {
-        return "Hola " + txt + " " + apellido;
-    }
-    
-    @WebMethod(operationName = "sumar")
-    @WebResult(name="resultado")
-    public int Suma(
-            @WebParam(name = "digito1") int numero1, 
-            @WebParam(name = "digito2") int numero2
-    ) {
-        int sum = numero1+numero2; 
-        return sum;
-    }
+   
 }
 
 }
