@@ -444,7 +444,7 @@ Esta clase se puede visualizar en el paso 1.
 ```java
 //Retorna todos los productos
 @WebMethod(operationName ="consultarProductos")
- @WebResult(name="Producto")
+@WebResult(name="Producto")
 public List<Producto> get_todoProducto(){
 
   ProductoDao prodDao = new ProductoDao(); 
