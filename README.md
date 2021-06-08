@@ -500,8 +500,9 @@ public class WSgesbod {
 ```
 
 Pasos Faltantes: 
-# Creacion Cliente JAVA
-# Creacion Cliente Python
+# Creacion Clientes Python
+# Creacion Clientes JAVA
+
 
 
 
