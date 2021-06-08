@@ -1,5 +1,8 @@
 # TODO-IPY-U2
 
+
+# Paso 1, Creacion Web Service
+
 #API JAX-WS
 Tecnologia Java para construir Clientes y Servicios Web, basados en XML y SOAP. 
 Esta api oculta la complejidad de SOAP, resolviendo problemas asociados a creacion manual de WSDL. 
