@@ -12,16 +12,16 @@ Cliente         <---    SOAP      --->      Web Service
    import javax.jws.WebMethod;
    import javax.jws.WebParam;
   
-   @WebService (serviceName = "nombreServicio" )
-   {
-    
-       @webMethod(operationName = "Hello")
-       public String hello(@WebParam(name="name") String txt)
-       {
-         return "Hello" + txt + " !"; 
-       }
-  
-   }
+    //actualiza stock
+    @WebMethod(operationName="actualizarStock")
+    @WebResult(name="resultado")   
+    public boolean updateStock( @WebParam(name="codigo_produicto") int codigo_producto, @WebParam(name="cantidadProducto") int stock_producto )
+    {
+        ProductoDao prodDao = new ProductoDao();
+        boolean resultado = prodDao.fun_actualizarStock(codigo_producto, stock_producto); 
+        return resultado; 
+        
+    }
 ```
 
 1. 
