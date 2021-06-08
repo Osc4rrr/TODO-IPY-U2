@@ -114,3 +114,66 @@ CREATE TABLE PRODUCTO
 INSERT INTO "PRODUCTO" (ID_PRODUCTO, NOMBRE, PRECIO, STOCK, AUTOR, VIGENCIA) VALUES ('1', 'La caperucita', '2000', '2000', 'Disney', 'S');
 INSERT INTO "PRODUCTO" (ID_PRODUCTO, NOMBRE, PRECIO, STOCK, AUTOR, VIGENCIA) VALUES ('2', 'Tierra de oso', '7800', '4500', 'Disney', 'S');
 ```
+
+
+2. Crearemos package donde se creara la conexion a la base de datos, nombre Modelo, escoger modelo y crear una nueva clase, con nombre Conexion. 
+  - Script entregado por profesora en clases: 
+```java
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Modelo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+/**
+ *
+ * @author 
+ */
+public class Conexion {
+    private Connection cnn;
+
+    public Conexion() {
+        this.conectar();
+    }
+
+    public Connection getCnn() {
+        return cnn;
+    }
+
+    public void setCnn(Connection cnn) {
+        this.cnn = cnn;
+    }
+    
+    private void conectar() {
+        try{
+        Class.forName("oracle.jdbc.OracleDriver");
+        String BaseDeDatos = "jdbc:oracle:thin:@localhost:1521:xe";
+        cnn= DriverManager.getConnection(BaseDeDatos,"usuario","clave");
+            if(cnn==null)
+            {
+                System.out.println("Conexion fallida");
+            }
+        }
+        catch(ClassNotFoundException | SQLException e)
+        {System.out.println("error"+e);}
+        
+    }
+    
+    public void desonectarBD() {
+        try {
+            this.getCnn().close();
+        } catch (SQLException ee) {
+            System.out.println(ee.getMessage());
+        }
+
+    }
+
+    
+}
+```
+
