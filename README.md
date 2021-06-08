@@ -11,6 +11,28 @@ Cliente         <---    SOAP      --->      Web Service
    import javax.jws.WebService;
    import javax.jws.WebMethod;
    import javax.jws.WebParam;
+   
+    //Retorna todos los productos
+    @WebMethod(operationName ="consultarProductos")
+    @WebResult(name="Producto")
+    public List<Producto> get_todoProducto(){
+        
+        ProductoDao prodDao = new ProductoDao(); 
+        List<Producto> lista = prodDao.fun_todoProducto(); 
+        return lista; 
+    }
+   
+    //Retorna un producto
+    @WebMethod(operationName="getProducto")
+    @WebResult(name="Producto")
+    public Producto getProducto(@WebParam(name="codigoProducto") int codigo_producto){
+    
+        ProductoDao prodDao = new ProductoDao(); 
+        Producto prod = prodDao.fun_producto(codigo_producto); 
+        
+        return prod; 
+       
+    }
   
     //actualiza stock
     @WebMethod(operationName="actualizarStock")
