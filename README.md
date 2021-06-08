@@ -38,15 +38,7 @@ Para echarlo a andar, se selecciona build y luego run.
    @WebService(serviceName = "ServicioGesbod")
    public class WSgesbod {
    
-       //Retorna todos los productos
-       @WebMethod(operationName ="consultarProductos")
-       @WebResult(name="Producto")
-       public List<Producto> get_todoProducto(){
 
-           ProductoDao prodDao = new ProductoDao(); 
-           List<Producto> lista = prodDao.fun_todoProducto(); 
-           return lista; 
-       }
 
        //Retorna un producto
        @WebMethod(operationName="getProducto")
@@ -444,6 +436,21 @@ public class ProductoDao {
     
 }
 
+```
+
+# Invocar nuevo web service, con datos de bd
+Esta clase se puede visualizar en el paso 1. 
+
+```java
+//Retorna todos los productos
+@WebMethod(operationName ="consultarProductos")
+ @WebResult(name="Producto")
+public List<Producto> get_todoProducto(){
+
+  ProductoDao prodDao = new ProductoDao(); 
+  List<Producto> lista = prodDao.fun_todoProducto(); 
+  return lista; 
+}
 ```
 
 
