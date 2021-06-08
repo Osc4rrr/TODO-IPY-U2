@@ -322,7 +322,9 @@ end;
 
 
 
-# Creacion de clase intermedia que permitira hacer las acciones hacia la base de datos y desde la base de datos, en caso dejemplo, sera la clase DAO en package modelo, esto se deberia crear en otro package y no necesariamente en el mismo package modelo, asi tener una estructura mas ordenada.
+# Creacion de clase intermedia DAO 
+
+permitira hacer las acciones hacia la base de datos y desde la base de datos, en caso dejemplo, sera la clase DAO en package modelo, esto se deberia crear en otro package y no necesariamente en el mismo package modelo, asi tener una estructura mas ordenada.
 
 Dao nos permite abstraernos del motor de base de datos, lo que quiere decir que si se cambia motor de base de datos, el patron dao deberia funcionar igual. 
 
