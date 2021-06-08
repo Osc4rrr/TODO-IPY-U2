@@ -175,7 +175,7 @@ se recomienda dejar el ojdbc en la carpeta donde se crea proyecto y escoger path
 
 4. Conectarse a la base de datos desde sql developer y ejecutamos el script de nuestra base de datos. 
 
-# Creacion de modelos
+# Paso 3, Creacion de modelos
 
 1. en packages, modelo se crearan las clases que utilizaremos, que seran coincidentes con los nombre de las tablas de la base de datos, estas se irian creando a medida que se vayan necesitando en el desarrollo. 
 
@@ -261,7 +261,7 @@ public class Producto {
 }
 ```
 
-# Creacion de procedimientos almacenados 
+# Paso 4, Creacion de procedimientos almacenados 
 1. Se crearan los procedimientos almacenados en la base de datos, para luego llamarlos desde java 
 
 Tip para crear procedimiento almacenado: 
@@ -314,7 +314,7 @@ end;
 
 
 
-# Creacion de clase intermedia DAO 
+# Paso 5, Creacion de clase intermedia DAO 
 
 permitira hacer las acciones hacia la base de datos y desde la base de datos, en caso dejemplo, sera la clase DAO en package modelo, esto se deberia crear en otro package y no necesariamente en el mismo package modelo, asi tener una estructura mas ordenada.
 
@@ -438,7 +438,7 @@ public class ProductoDao {
 
 ```
 
-# Invocar nuevo web service, con datos de bd
+# Paso 6,Invocar nuevo web service, con datos de bd
 Esta clase se puede visualizar en el paso 1. 
 
 ```java
