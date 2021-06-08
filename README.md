@@ -3,6 +3,8 @@
 
 # Paso 1, Creacion Web Service
 
+En primer lugar, debemos determinar los web services que haremos, los que se muestran principalmente en el diagrama de despliegue. 
+
 #API JAX-WS
 Tecnologia Java para construir Clientes y Servicios Web, basados en XML y SOAP. 
 Esta api oculta la complejidad de SOAP, resolviendo problemas asociados a creacion manual de WSDL. 
@@ -19,7 +21,7 @@ Requisitos:
 Abrir pestana services en netbeans, ir a servers y agregar server, escoger glassfish server, buscar el archivo descomprimido bajado de drive, local domain, siguiente. 
   
 #Crear WebService
-crear nuevo proyecto en netbeans, ir a java web y escoger web application, poner nombre a web service, en caso ejemplo caso "servicioGesBod", finish. Se creara un archivo html
+crear nuevo proyecto en netbeans, ir a java web y escoger web application, poner nombre a web service, en caso ejemplo "servicioGesBod", finish. Se creara un archivo html
    
 Para echarlo a andar, se selecciona build y luego run. 
    
