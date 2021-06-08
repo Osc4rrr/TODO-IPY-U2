@@ -8,9 +8,9 @@ Cliente         <---    SOAP      --->      Web Service
 (JAX-WS Runtime)      (Mensaje)             (JAX-WS Runtime)
 
 ```java
-	import javax.jws.WebService;
-	import javax.jws.WebMethod;
-	import javax.jws.WebParam;
+   import javax.jws.WebService;
+   import javax.jws.WebMethod;
+   import javax.jws.WebParam;
   
   @WebService (serviceName = "nombreServicio" )
   {
