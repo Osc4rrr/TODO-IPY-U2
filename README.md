@@ -539,6 +539,141 @@ Profesora recomienda usar una maquina virtual, para asi no danar otras instalaci
     
 </body>
 </html>
+
+<!--home.html -->
+{% extends "./base.html" %}
+
+{% block contenido  %}
+
+    <script>
+
+        $(function() {
+            $("#form_buscar").on('submit', function(){
+                var formData = new FormData(this); 
+
+                $.ajax({
+                    url: "{% url 'post_buscar' %}", 
+                    type: "POST", 
+                    data: formData, 
+                    processData: false,
+                    contentType: false, 
+                    success: function(respuesta){
+                        $("#nombre").val(respuesta.nombre);
+                        $("#stock_disponible").val(respuesta.stock); 
+                        $("#precio").val(respuesta.precio); 
+                        $("#codigo_oculto").val(respuesta.codigo);
+                    }
+                }); 
+
+                return false; 
+            }); 
+
+
+            
+            $("#form_actualizar").on('submit', function(){
+                var formData = new FormData(this); 
+
+                $.ajax({
+                    url: "{% url 'post_actualizar' %}", 
+                    type: "POST", 
+                    data: formData, 
+                    processData: false,
+                    contentType: false, 
+                    success: function(respuesta){
+                        var mensaje = respuesta.mensaje; 
+                        //TODO
+                        // $('#table').bootstrapTable('refresh');
+                        alert(mensaje);
+                        
+                    }
+                }); 
+
+                return false; 
+            })
+
+        })
+    </script>
+
+    <h3>Formulario</h3>
+
+    <form method="post" id="form_buscar">
+        {% csrf_token %}
+
+        <div class="form-group">
+            
+            <span>Ingrese Codigo: </span>
+            <input type="text" name="codigo" id="codigo" />
+
+            <button type="submit" class="btn btn-success">Buscar Libro</button>
+
+            
+        </div>
+
+    </form>
+
+    <hr>
+    
+    <form method="post" id="form_actualizar">
+        {% csrf_token %}
+
+        <div class="form-group">
+            
+
+            <span>Nombre</span>
+            <input type="text" name="nombre" id="nombre" readonly />
+            
+            <span>Stock: </span>
+            <input type="text" name="stock" id="stock_disponible" readonly />
+
+            <span>Precio </span>
+            <input type="text" name="precio" id="precio" readonly />
+
+            <input type="hidden" name="codigo_oculto" id="codigo_oculto"/>
+            <span>Ingrese Cantidad a comprar: </span>
+            <input type="text" name="stock" id="stock"/>
+
+            <button type="submit" class="btn btn-success">Actualizar Stock</button>
+
+        </div>
+
+    </form>
+
+
+    <h3>{{mensaje}}</h3>
+
+    <table 
+        data-toggle="table" 
+        data-sort-name="stargazers_count"
+        data-sort-order="desc"
+        data-pagination="true"
+        data-search="true"
+        id="table"
+    >
+
+    <thead class="thead-inverse">
+        <th  data-sortable="true">Codigo Libro</th>
+        <th  data-sortable="true">Nombre Libro</th>
+        <th  data-sortable="true">Stock Libro</th>
+        <th  data-sortable="true">Precio libro</th>
+        <th  data-sortable="true">Vigencia Libro</th>
+    </thead>
+
+    <tbody>
+        {% for libro in lista %}
+            <tr>
+                <td>{{libro.codigo}}</td>
+                <td>{{libro.nombre}}</td>
+                <td>{{libro.precio}}</td>
+                <td>{{libro.stock}}</td>
+                <td>{{libro.vigencia}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+    </table>
+        
+{% endblock contenido %}
+
 ```
 
 
