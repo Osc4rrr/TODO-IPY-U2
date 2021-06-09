@@ -516,9 +516,35 @@ Profesora recomienda usar una maquina virtual, para asi no danar otras instalaci
 
 # Paso 8, Creacion de templates o vistas que utilizaremos 
 
-1. Creacion de archivos html que utilizaremos, primero seguramente seran los archivos base y despues iremos avanzando a medida de los webservices que tengamos construidos. 
-2. Agregar template al views.py
-3. crear archivo url.py en core. Ejemplo clases: 
+1. Creacion de archivos html que utilizaremos, primero seguramente seran los archivos base y despues iremos avanzando a medida de los webservices que tengamos construidos.
+```html
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+
+    <title>Cliente Bodega</title>
+</head>
+<body>
+
+    {% block contenido  %}
+        
+    {% endblock contenido %}
+    
+</body>
+</html>
+```
+
+
+
+3. Agregar template al views.py
+4. crear archivo url.py en core. Ejemplo clases: 
 
 
 ```python
@@ -627,8 +653,6 @@ from .libro import Libro
 from django.http import JsonResponse
 
 # Create your views here.
-
-# aca se pondra llamada a ws
 
 
 def home(request):
