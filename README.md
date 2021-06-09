@@ -499,8 +499,180 @@ public class WSgesbod {
 }
 ```
 
-Pasos Faltantes: 
-# Creacion Clientes Python
+# Paso 7,Creacion app python 
+
+Profesora recomienda usar una maquina virtual, para asi no danar otras instalaciones que tengamos: 
+- pip install virtualenv
+- pip install django
+
+1. Crearemos la carpeta con el nombre de nuestro proyecto y la abriremos en vscode
+2. crearemos maquina virtual dentro de carpeta : virtualenv ve_maquina
+3. Activaremos la maquina llegando al archivo activate.ps1: .\ve_maquina\Scripts\activate [Windows, la profe usa source, que es un comando de mac y linux]
+4. En mi caso, tuve que dar permisos para que ejecutara el archivo del paso 4, ya que me mostraba un error: Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+5. Para crear un cliente con python, en esta oportunidad lo usaremos con Django, usando la libreria zeep, que nos permitira crear clientes en django, para consumir nuestros web services. 
+6. Crear proyecto de django: django-admin.py startproject clienteSoap 
+7. crear app de python: python manage.py startapp core
+8. agregar app a settings.py
+
+# Paso 8, Creacion de templates o vistas que utilizaremos 
+
+1. Creacion de archivos html que utilizaremos, primero seguramente seran los archivos base y despues iremos avanzando a medida de los webservices que tengamos construidos. 
+2. Agregar template al views.py
+3. crear archivo url.py en core. Ejemplo clases: 
+
+
+```python
+from django.urls import path
+from .views import home
+from .views import buscarLibro
+from .views import actualizarLibro
+
+
+urlpatterns = [
+    path('', home, name="home"),
+    path('post/ajax/buscar', buscarLibro, name="post_buscar"),
+    path('post/ajax/actualizar', actualizarLibro, name="post_actualizar")
+]
+
+#incluir url creado en urls del proyecto :
+
+from django import urls
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('', include('core.urls')),
+    path('admin/', admin.site.urls),
+]
+
+```
+
+# Paso 9, crear clases que utilizaremos, ejemplo: 
+
+```python
+
+
+
+class Libro:
+    codigo = ''
+    nombre = ''
+    stock = ''
+    precio = ''
+    vigencia = ''
+
+    def __init__(self, codigo, nombre, stock, precio, vigencia):
+        self.codigo = codigo
+        self.nombre = nombre
+        self.stock = stock
+        self.precio = precio
+        self.vigencia = vigencia
+
+    def libroArr(self):
+        return {
+            'codigo': self.codigo,
+            'nombre': self.nombre,
+            'stock': self.stock,
+            'precio': self.precio,
+            'vigencia': self.vigencia
+        }
+
+    def __str__(self):
+        return 'codigo: ' + self.codigo + 'nombre: '+self.nombre + ' stock: ' + self.stock + ' precio: ' + self.precio + ' vigencia: ' + self.vigencia
+
+```
+
+# Paso 10, crear controladores que utilizaremos: 
+
+Aqui es donde se conectara con el web service. 
+```python
+from zeep import Client
+from .libro import Libro
+
+
+class Controller:
+    wsdl = 'http://localhost:8080/servicioGesBod/ServicioGesbod?WSDL'
+    client = Client(wsdl)
+
+    def buscarTodos(self):
+        listaLibro = []
+        lista = self.client.service.consultarProductos()
+        for i in range(len(lista)):
+            libro = Libro(
+                lista[i]['codigo_producto'],
+                lista[i]['nombre_producto'],
+                lista[i]['precio'],
+                lista[i]['stock'],
+                lista[i]['vigencia'],
+            )
+            listaLibro.append(libro)
+
+        return listaLibro
+
+    def buscarLibro(self, codigo):
+        print(codigo)
+        libro = self.client.service.getProducto(codigo)
+        return libro
+
+    def actualizarStock(self, codigo, stock):
+        resultado = self.client.service.actualizarStock(codigo, stock)
+        return resultado
+```
+
+# paso 11, llamar a los controladores desde archivo views.py
+```python
+from .controller import Controller
+from django.shortcuts import render
+from .libro import Libro
+
+from django.http import JsonResponse
+
+# Create your views here.
+
+# aca se pondra llamada a ws
+
+
+def home(request):
+    variables = {
+        'mensaje': '',
+        'lista': ''
+    }
+
+    try:
+        controller = Controller()
+        lista = controller.buscarTodos()
+        variables['lista'] = lista
+        variables['mensaje'] = "Datos correctos"
+    except:
+        variables['mensaje'] = "Sin Datos"
+
+    return render(request, 'core/home.html', variables)
+
+
+def buscarLibro(request):
+    controller = Controller()
+    codigo = request.POST.get('codigo')
+    libro = controller.buscarLibro(codigo)
+    return JsonResponse({
+        'codigo': libro.codigo_producto,
+        'nombre': libro.nombre_producto,
+        'stock': libro.stock,
+        'precio': libro.precio,
+        'vigencia': libro.vigencia
+    })
+
+
+def actualizarLibro(request):
+    controller = Controller()
+    codigo = request.POST.get('codigo_oculto')
+    stock = request.POST.get('stock')
+    resultado = controller.actualizarStock(codigo, stock)
+    return JsonResponse({
+        'mensaje': resultado
+    })
+```
+
+
+
 # Creacion Clientes JAVA
 
 
