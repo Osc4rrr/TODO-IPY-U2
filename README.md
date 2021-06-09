@@ -678,8 +678,8 @@ Profesora recomienda usar una maquina virtual, para asi no danar otras instalaci
 
 
 
-3. Agregar template al views.py
-4. crear archivo url.py en core. Ejemplo clases: 
+
+2. crear archivo url.py en core. Ejemplo clases: 
 
 
 ```python
